@@ -1,0 +1,40 @@
+---
+interface Step {
+  number: number;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: Step[];
+  class?: string;
+}
+
+const { steps, class: className = '' } = Astro.props;
+---
+
+<div class:list={['grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8', className]}>
+  {steps.map((step) => (
+    <div class="process__step">
+      <div class="process__number">{step.number}</div>
+      <h3 class="process__title">{step.title}</h3>
+      <p class="process__description">{step.description}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  @reference "../../styles/global.css";
+  .process__step {
+    @apply text-center;
+  }
+  .process__number {
+    @apply w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold mx-auto mb-4;
+  }
+  .process__title {
+    @apply text-lg font-semibold text-neutral-900 mb-2;
+  }
+  .process__description {
+    @apply text-base text-neutral-600 leading-relaxed;
+  }
+</style>

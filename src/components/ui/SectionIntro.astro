@@ -1,0 +1,46 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  description?: string;
+  align?: 'left' | 'center';
+  headingAs?: 'h1' | 'h2' | 'h3';
+  headingSize?: 'display' | 'heading-1' | 'heading-2';
+}
+
+const {
+  eyebrow,
+  heading,
+  description,
+  align = 'center',
+  headingAs = 'h2',
+  headingSize = 'heading-2'
+} = Astro.props;
+
+const alignClasses: Record<string, string> = {
+  left: 'text-left',
+  center: 'text-center mx-auto',
+};
+
+const headingSizeClasses: Record<string, string> = {
+  'display': 'text-3xl md:text-5xl font-bold leading-tight',
+  'heading-1': 'text-2xl md:text-4xl font-bold leading-tight',
+  'heading-2': 'text-xl md:text-3xl font-semibold leading-snug',
+};
+
+const Tag = headingAs;
+---
+
+<div class:list={[alignClasses[align], 'max-w-3xl', align === 'left' && 'mx-0', 'mb-8 md:mb-12']}>
+  {eyebrow && (
+    <p class="text-sm font-medium uppercase tracking-wide text-primary-light mb-3">{eyebrow}</p>
+  )}
+  <Tag class:list={[headingSizeClasses[headingSize], 'text-neutral-900 mb-4']}>
+    {heading}
+  </Tag>
+  {description && (
+    <p class:list={['text-base md:text-lg leading-relaxed text-neutral-600', align === 'center' && 'mx-auto max-w-2xl']}>
+      {description}
+    </p>
+  )}
+</div>

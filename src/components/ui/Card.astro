@@ -1,0 +1,28 @@
+---
+interface Props {
+  hover?: boolean;
+  padding?: 'default' | 'compact' | 'none';
+  class?: string;
+}
+
+const {
+  hover = true,
+  padding = 'default',
+  class: className = ''
+} = Astro.props;
+
+const paddingClasses: Record<string, string> = {
+  default: 'p-6 md:p-8',
+  compact: 'p-4 md:p-6',
+  none: '',
+};
+---
+
+<div class:list={[
+  'bg-white rounded-xl border border-neutral-200 shadow-sm',
+  hover && 'transition-shadow duration-200 hover:shadow-md',
+  paddingClasses[padding],
+  className
+]}>
+  <slot />
+</div>

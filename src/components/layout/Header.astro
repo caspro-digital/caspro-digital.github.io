@@ -1,0 +1,76 @@
+---
+import { mainNav } from '../../data/navigation';
+import Button from '../ui/Button.astro';
+import MobileNav from './MobileNav.astro';
+---
+
+<header id="site-header" class="sticky top-0 z-50 bg-white transition-shadow duration-200">
+  <div class="mx-auto max-w-7xl px-6 md:px-8">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 text-primary font-bold text-xl">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="currentColor" />
+          <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="700" font-family="Inter, sans-serif">C</text>
+        </svg>
+        <span>Caspro Digital</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+        {mainNav.map((item) => (
+          item.children ? (
+            <div class="relative group">
+              <button
+                class="flex items-center gap-1 text-neutral-700 hover:text-primary-light transition-colors font-medium text-sm"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                {item.label}
+                <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div class="bg-white rounded-lg shadow-lg border border-neutral-200 py-2 min-w-[200px]">
+                  {item.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary-light transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class="text-neutral-700 hover:text-primary-light transition-colors font-medium text-sm"
+            >
+              {item.label}
+            </a>
+          )
+        ))}
+        <Button href="/contact/" size="sm">Get Started</Button>
+      </nav>
+
+      <!-- Mobile Nav -->
+      <MobileNav />
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('shadow-sm');
+      } else {
+        header.classList.remove('shadow-sm');
+      }
+    }, { passive: true });
+  }
+</script>

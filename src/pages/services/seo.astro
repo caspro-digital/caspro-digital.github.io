@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Section from '../../components/layout/Section.astro';
+import SectionIntro from '../../components/ui/SectionIntro.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Grid from '../../components/layout/Grid.astro';
+import FAQ from '../../components/blocks/FAQ.astro';
+import CTABanner from '../../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'SEO' },
+];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://casprodigital.com/services/' },
+      { '@type': 'ListItem', position: 3, name: 'SEO', item: 'https://casprodigital.com/services/seo/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Search Engine Optimization (SEO)',
+    description: 'Data-driven SEO strategies that get your business found on Google. Local SEO, national SEO, content strategy, and monthly reporting.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Caspro Digital',
+      url: 'https://casprodigital.com',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    url: 'https://casprodigital.com/services/seo/',
+  },
+];
+
+const seoServices = [
+  {
+    title: 'SEO Audit',
+    price: '$500 one-time',
+    description: 'A comprehensive review of your website\u2019s technical health, keyword positioning, competitor landscape, and content gaps. You\u2019ll receive a detailed report with prioritized, actionable recommendations \u2014 whether you hire us to execute them or not.',
+    features: [],
+  },
+  {
+    title: 'Local SEO',
+    price: '$500 \u2013 $1,000/month',
+    description: 'For businesses that serve a specific geographic area. We optimize your Google Business Profile, build local citations, develop location-specific content, and implement a review strategy to dominate local search results.',
+    features: [
+      'Google Business Profile optimization and ongoing management',
+      'Local citation building (40+ directories)',
+      'Location-specific landing pages',
+      'Review generation strategy',
+      'Monthly ranking and traffic reports',
+    ],
+  },
+  {
+    title: 'National SEO',
+    price: '$1,000 \u2013 $2,500/month',
+    description: 'For businesses targeting customers across a broader geography or competing in national search results. We develop comprehensive content strategies, build quality backlinks, and continuously optimize your technical SEO foundation.',
+    features: [
+      'Keyword research and content strategy',
+      'Monthly SEO-optimized content creation',
+      'Technical SEO monitoring and fixes',
+      'Backlink outreach and building',
+      'Competitor monitoring',
+      'Monthly performance reports with clear metrics',
+    ],
+  },
+  {
+    title: 'Content Creation',
+    price: '$150 \u2013 $300/post',
+    description: 'SEO-optimized blog posts, service pages, and resource content written to rank for specific keywords and establish your business as an authority in your industry.',
+    features: [],
+  },
+];
+
+const reportItems = [
+  'Keyword ranking changes (where you moved up, and by how much)',
+  'Organic traffic trends',
+  'Top-performing pages',
+  'Work completed this month',
+  'Plan for next month',
+];
+
+const faqItems = [
+  {
+    question: 'How long does SEO take to work?',
+    answer: 'SEO is a long-term strategy. Most clients begin seeing measurable improvements in rankings and traffic within 3\u20136 months. Local SEO typically produces results faster than national campaigns. We set realistic expectations upfront and report progress monthly.',
+  },
+  {
+    question: 'Can you guarantee first page rankings?',
+    answer: 'No legitimate SEO professional can guarantee specific rankings \u2014 Google\u2019s algorithm considers hundreds of factors. What we do guarantee is a data-driven strategy, consistent execution, and transparent reporting so you can see the trajectory. If we\u2019re not trending in the right direction, we adjust the strategy.',
+  },
+  {
+    question: 'Do I need SEO if I already have a new website?',
+    answer: 'A new website is a great foundation, but without ongoing SEO, it\u2019s like opening a store with no sign on the road. SEO is what drives the traffic to your site and ensures you\u2019re visible when potential customers search for what you offer.',
+  },
+];
+---
+
+<BaseLayout
+  title="SEO Services for Small Businesses | Caspro Digital"
+  description="Data-driven SEO strategies that get your business found on Google. Local SEO, national SEO, content strategy, and monthly reporting. Results you can measure."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="SEO That Actually Moves the Needle"
+    subtitle="Most SEO agencies sell mystery. We sell clarity. You\u2019ll know exactly what we\u2019re doing, why we\u2019re doing it, and how it\u2019s working \u2014 every single month."
+    primaryCta="Get a Free SEO Audit"
+    primaryHref="/contact/"
+    secondaryCta="See Pricing"
+    secondaryHref="#seo-services"
+  />
+
+  <!-- The Problem (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
+        Why Most Small Businesses Are Invisible on Google
+      </h2>
+      <div class="space-y-4 text-base md:text-lg leading-relaxed text-neutral-600">
+        <p>
+          Your potential customers are searching for what you offer right now.
+          If your business doesn't appear on the first page of Google, those
+          customers are going to your competitors.
+        </p>
+        <p>
+          87% of consumers start their search for local services online. 75%
+          never scroll past the first page of results. If you're not ranking,
+          you're not in the conversation.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Our SEO Services (white bg) -->
+  <Section background="white" id="seo-services">
+    <SectionIntro heading="Our SEO Services" />
+    <div class="space-y-8 max-w-4xl mx-auto">
+      {seoServices.map((service) => (
+        <Card hover={false} class="border-l-4 border-l-primary-light">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
+            <h3 class="text-lg md:text-xl font-semibold text-neutral-900">{service.title}</h3>
+            <span class="text-sm font-medium text-primary-light whitespace-nowrap">{service.price}</span>
+          </div>
+          <p class="text-base text-neutral-600 leading-relaxed mb-4">{service.description}</p>
+          {service.features.length > 0 && (
+            <ul class="space-y-2">
+              {service.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-neutral-700">
+                  <svg class="w-5 h-5 text-success shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <!-- How We Report Results (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4 text-center">
+        No Black Boxes. Just Clear Results.
+      </h2>
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600 text-center mb-8">
+        Every SEO client receives a monthly report that includes:
+      </p>
+      <Card hover={false}>
+        <ul class="space-y-3">
+          {reportItems.map((item) => (
+            <li class="flex items-start gap-3 text-base text-neutral-700">
+              <svg class="w-5 h-5 text-success shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Card>
+      <p class="text-base text-neutral-600 leading-relaxed mt-6 text-center">
+        You'll always know exactly what you're paying for and exactly what it's producing.
+      </p>
+    </div>
+  </Section>
+
+  <!-- FAQ (white bg) -->
+  <Section background="white">
+    <SectionIntro heading="SEO Questions & Answers" />
+    <FAQ items={faqItems} />
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner
+    heading="Ready to Get Found on Google?"
+    description="Get a free SEO audit and see exactly where your business stands \u2014 and what it\u2019ll take to start ranking."
+    primaryCta="Get a Free SEO Audit"
+  />
+</BaseLayout>

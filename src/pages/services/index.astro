@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Section from '../../components/layout/Section.astro';
+import Grid from '../../components/layout/Grid.astro';
+import SectionIntro from '../../components/ui/SectionIntro.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+import CTABanner from '../../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import { services } from '../../data/services';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services' },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbItems
+    .filter((item) => item.href)
+    .map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      item: `https://casprodigital.com${item.href}`,
+    }))
+    .concat({
+      '@type': 'ListItem',
+      position: breadcrumbItems.length,
+      name: 'Services',
+      item: 'https://casprodigital.com/services/',
+    }),
+};
+
+const serviceSchemas = services.map((service) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  description: service.description,
+  provider: {
+    '@type': 'Organization',
+    name: 'Caspro Digital',
+    url: 'https://casprodigital.com',
+  },
+  url: `https://casprodigital.com${service.href}`,
+}));
+
+const pricingRanges: Record<string, string> = {
+  'web-design': '$1,500 \u2013 $10,000+',
+  seo: '$500 \u2013 $2,500/mo',
+  'website-management': '$150 \u2013 $500/mo',
+  'tech-consulting': '$250 \u2013 $1,500/mo',
+};
+
+const expandedDescriptions: Record<string, string> = {
+  'web-design':
+    'Custom, SEO-optimized websites built to generate leads and grow your business. Every site is mobile-first, lightning fast, and designed to turn visitors into paying customers.',
+  seo:
+    'Data-driven SEO strategies that get your business found on Google. From local search to national rankings, we put you in front of the right people at the right time.',
+  'website-management':
+    'Hosting, security, backups, updates, and performance monitoring \u2014 all handled. Your site stays fast, secure, and up-to-date without you lifting a finger.',
+  'tech-consulting':
+    'Strategic technology guidance for businesses that need more than just a website. We help you choose the right tools, streamline workflows, and make smarter digital decisions.',
+};
+---
+
+<BaseLayout
+  title="Digital Services for Small Businesses | Caspro Digital"
+  description="Web design, SEO, website management, and tech consulting services built for small businesses and professional firms. Transparent pricing. Real results."
+>
+  <SchemaOrg schema={[breadcrumbSchema, ...serviceSchemas]} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Digital Services Built for Growth"
+    subtitle="Caspro Digital provides everything your business needs to build, grow, and manage its online presence \u2014 all under one roof, with one team that knows your business inside and out."
+    primaryCta="Schedule a Free Discovery Call"
+    primaryHref="/contact/"
+  />
+
+  <!-- Intro copy (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600">
+        Every service is designed to work together. Your website feeds your SEO.
+        Your SEO drives traffic. Your management retainer ensures everything keeps
+        performing. And our consulting makes sure you're making the right technology
+        decisions at every step.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Service Cards (white bg) -->
+  <Section background="white">
+    <Grid cols={2}>
+      {services.map((service) => (
+        <Card class="h-full flex flex-col">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Icon name={service.icon} size={24} class="text-primary-light" />
+            </div>
+            <h2 class="text-lg md:text-xl font-semibold text-neutral-900">{service.name}</h2>
+          </div>
+          <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">
+            {expandedDescriptions[service.slug]}
+          </p>
+          <div class="flex items-center justify-between mt-auto pt-4 border-t border-neutral-100">
+            <span class="text-sm font-medium text-neutral-500">{pricingRanges[service.slug]}</span>
+            <a
+              href={service.href}
+              class="text-primary-light font-medium text-sm hover:text-primary transition-colors inline-flex items-center gap-1"
+            >
+              Learn more
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+        </Card>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- Not Sure Where to Start (light bg) -->
+  <Section background="light">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
+        Not Sure Where to Start?
+      </h2>
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600 mb-8">
+        Book a free 30-minute discovery call. We'll review your current digital
+        presence, identify the biggest opportunities, and recommend the right
+        services for your goals and budget. No pressure, no obligation.
+      </p>
+      <Button href="/contact/" size="lg">Schedule a Free Discovery Call</Button>
+    </div>
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>

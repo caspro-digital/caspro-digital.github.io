@@ -1,0 +1,34 @@
+---
+interface Props {
+  reverse?: boolean;
+  split?: '50-50' | '60-40';
+  alignY?: 'top' | 'center';
+  class?: string;
+}
+
+const {
+  reverse = false,
+  split = '60-40',
+  alignY = 'center',
+  class: className = ''
+} = Astro.props;
+
+const splitClasses: Record<string, string> = {
+  '50-50': 'lg:grid-cols-2',
+  '60-40': reverse ? 'lg:grid-cols-[2fr_3fr]' : 'lg:grid-cols-[3fr_2fr]',
+};
+
+const alignClasses: Record<string, string> = {
+  top: 'items-start',
+  center: 'items-center',
+};
+---
+
+<div class:list={[
+  'grid grid-cols-1 gap-8 md:gap-12',
+  splitClasses[split],
+  alignClasses[alignY],
+  className
+]}>
+  <slot />
+</div>

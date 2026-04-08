@@ -1,0 +1,100 @@
+---
+import { mainNav } from '../../data/navigation';
+import Button from '../ui/Button.astro';
+---
+
+<div class="lg:hidden">
+  <button
+    id="mobile-nav-toggle"
+    class="p-2 text-neutral-700 hover:text-primary-light transition-colors"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="mobile-nav-panel"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+
+  <div
+    id="mobile-nav-panel"
+    class="fixed inset-0 z-50 bg-white transform translate-x-full transition-transform duration-300 ease-in-out"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between p-6">
+      <a href="/" class="text-primary font-bold text-xl">Caspro Digital</a>
+      <button
+        id="mobile-nav-close"
+        class="p-2 text-neutral-700 hover:text-primary-light transition-colors"
+        aria-label="Close menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="px-6 py-4 space-y-1" aria-label="Mobile navigation">
+      {mainNav.map((item) => (
+        <div>
+          <a
+            href={item.href}
+            class="block py-3 text-lg font-medium text-neutral-900 hover:text-primary-light transition-colors border-b border-neutral-100"
+          >
+            {item.label}
+          </a>
+          {item.children && (
+            <div class="pl-4 space-y-1">
+              {item.children.map((child) => (
+                <a
+                  href={child.href}
+                  class="block py-2 text-base text-neutral-600 hover:text-primary-light transition-colors"
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <div class="pt-6">
+        <Button href="/contact/" class="w-full text-center">Get Started</Button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const panel = document.getElementById('mobile-nav-panel');
+  const close = document.getElementById('mobile-nav-close');
+
+  function openMenu() {
+    panel?.classList.remove('translate-x-full');
+    panel?.classList.add('translate-x-0');
+    panel?.setAttribute('aria-hidden', 'false');
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    panel?.classList.add('translate-x-full');
+    panel?.classList.remove('translate-x-0');
+    panel?.setAttribute('aria-hidden', 'true');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle?.addEventListener('click', openMenu);
+  close?.addEventListener('click', closeMenu);
+
+  // Close on link click
+  panel?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>

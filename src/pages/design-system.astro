@@ -1,0 +1,538 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/layout/Section.astro';
+import Grid from '../components/layout/Grid.astro';
+import SplitLayout from '../components/layout/SplitLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import SectionIntro from '../components/ui/SectionIntro.astro';
+import Divider from '../components/ui/Divider.astro';
+import Hero from '../components/blocks/Hero.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import FAQ from '../components/blocks/FAQ.astro';
+import ProcessSteps from '../components/blocks/ProcessSteps.astro';
+import PricingTable from '../components/blocks/PricingTable.astro';
+
+const faqItems = [
+  { question: 'How much does a website cost?', answer: 'Our website projects start at $1,500 for a 5-7 page business site and range up to $10,000+ for complex custom builds.' },
+  { question: 'How long does it take to build a website?', answer: 'Most business websites launch within 3-5 weeks from kickoff. Complex projects may take 6-8 weeks.' },
+  { question: 'Do I need to sign a long-term contract?', answer: 'No. Our retainer agreements start with a 3-month minimum, then continue month-to-month.' },
+];
+
+const processSteps = [
+  { number: 1, title: 'Discovery Call', description: 'We learn about your business, goals, and current digital presence.' },
+  { number: 2, title: 'Strategy & Design', description: 'We build your custom strategy before writing a single line of code.' },
+  { number: 3, title: 'Build & Launch', description: 'We develop your site with SEO, speed, and conversions as the priority.' },
+  { number: 4, title: 'Grow & Optimize', description: 'We manage, monitor, and continuously optimize your site.' },
+];
+
+const pricingColumns = [
+  {
+    name: 'Starter',
+    price: '$1,500',
+    period: 'starting at',
+    description: 'New businesses needing a professional presence fast.',
+    featured: false,
+    features: [
+      { text: '5-7 pages', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'SEO foundation', included: true },
+      { text: 'Contact forms', included: true },
+      { text: 'Blog', included: false },
+      { text: 'E-commerce', included: false },
+    ],
+  },
+  {
+    name: 'Professional',
+    price: '$3,000',
+    period: 'starting at',
+    description: 'Established businesses ready to compete online.',
+    featured: true,
+    features: [
+      { text: '8-15 pages', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'SEO foundation', included: true },
+      { text: 'Contact forms', included: true },
+      { text: 'Blog', included: true },
+      { text: 'Booking integration', included: true },
+    ],
+  },
+  {
+    name: 'Premium',
+    price: '$5,000+',
+    period: 'custom',
+    description: 'Businesses with complex needs or e-commerce.',
+    featured: false,
+    features: [
+      { text: 'Custom pages', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'Advanced SEO', included: true },
+      { text: 'Custom functionality', included: true },
+      { text: 'E-commerce', included: true },
+      { text: 'Unlimited revisions', included: true },
+    ],
+  },
+];
+
+const colors = [
+  { name: 'Primary', value: '#1B3A5C', class: 'bg-primary' },
+  { name: 'Primary Light', value: '#2E6DAE', class: 'bg-primary-light' },
+  { name: 'Primary Dark', value: '#0F2440', class: 'bg-primary-dark' },
+  { name: 'Accent', value: '#F59E0B', class: 'bg-accent' },
+  { name: 'Accent Hover', value: '#D97706', class: 'bg-accent-hover' },
+  { name: 'Accent Light', value: '#FEF3C7', class: 'bg-accent-light' },
+  { name: 'Success', value: '#10B981', class: 'bg-success' },
+  { name: 'Error', value: '#EF4444', class: 'bg-error' },
+];
+
+const neutrals = [
+  { name: 'Neutral 50', value: '#F9FAFB', class: 'bg-neutral-50' },
+  { name: 'Neutral 100', value: '#F3F4F6', class: 'bg-neutral-100' },
+  { name: 'Neutral 200', value: '#E5E7EB', class: 'bg-neutral-200' },
+  { name: 'Neutral 300', value: '#D1D5DB', class: 'bg-neutral-300' },
+  { name: 'Neutral 400', value: '#9CA3AF', class: 'bg-neutral-400' },
+  { name: 'Neutral 500', value: '#6B7280', class: 'bg-neutral-500' },
+  { name: 'Neutral 600', value: '#4B5563', class: 'bg-neutral-600' },
+  { name: 'Neutral 700', value: '#374151', class: 'bg-neutral-700' },
+  { name: 'Neutral 800', value: '#1F2937', class: 'bg-neutral-800' },
+  { name: 'Neutral 900', value: '#111827', class: 'bg-neutral-900' },
+];
+---
+
+<BaseLayout
+  title="Design System | Caspro Digital"
+  description="Internal design system reference"
+  noindex={true}
+>
+  <!-- Page Header -->
+  <Section background="white" padding="compact">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl md:text-4xl font-bold leading-tight text-neutral-900 mb-2">Design System</h1>
+        <p class="text-base md:text-lg leading-relaxed text-neutral-600">Living reference for all Caspro Digital components and tokens.</p>
+      </div>
+      <nav class="hidden lg:block">
+        <ul class="flex gap-4 text-sm">
+          <li><a href="#colors" class="text-primary-light hover:text-primary transition-colors">Colors</a></li>
+          <li><a href="#typography" class="text-primary-light hover:text-primary transition-colors">Typography</a></li>
+          <li><a href="#buttons" class="text-primary-light hover:text-primary transition-colors">Buttons</a></li>
+          <li><a href="#cards" class="text-primary-light hover:text-primary transition-colors">Cards</a></li>
+          <li><a href="#badges" class="text-primary-light hover:text-primary transition-colors">Badges</a></li>
+          <li><a href="#section-intro" class="text-primary-light hover:text-primary transition-colors">Section Intro</a></li>
+          <li><a href="#grid" class="text-primary-light hover:text-primary transition-colors">Grid</a></li>
+          <li><a href="#forms" class="text-primary-light hover:text-primary transition-colors">Forms</a></li>
+          <li><a href="#faq" class="text-primary-light hover:text-primary transition-colors">FAQ</a></li>
+          <li><a href="#process" class="text-primary-light hover:text-primary transition-colors">Process</a></li>
+          <li><a href="#pricing" class="text-primary-light hover:text-primary transition-colors">Pricing</a></li>
+          <li><a href="#hero" class="text-primary-light hover:text-primary transition-colors">Hero</a></li>
+          <li><a href="#cta" class="text-primary-light hover:text-primary transition-colors">CTA</a></li>
+          <li><a href="#spacing" class="text-primary-light hover:text-primary transition-colors">Spacing</a></li>
+        </ul>
+      </nav>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- COLORS -->
+  <Section background="white" padding="compact" id="colors">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Colors</h2>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Brand & Semantic</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      {colors.map((color) => (
+        <div>
+          <div class:list={[color.class, 'h-20 rounded-lg border border-neutral-200 mb-2']}></div>
+          <p class="text-sm font-medium text-neutral-900">{color.name}</p>
+          <p class="text-xs text-neutral-400 font-mono">{color.value}</p>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Neutrals</h3>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {neutrals.map((color) => (
+        <div>
+          <div class:list={[color.class, 'h-16 rounded-lg border border-neutral-200 mb-2']}></div>
+          <p class="text-sm font-medium text-neutral-900">{color.name}</p>
+          <p class="text-xs text-neutral-400 font-mono">{color.value}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- TYPOGRAPHY -->
+  <Section background="light" padding="compact" id="typography">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Typography</h2>
+    <div class="space-y-6">
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">display (Hero H1)</p>
+        <p class="text-3xl md:text-5xl font-bold leading-tight text-neutral-900">Websites That Work as Hard as You Do</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">heading-1 (Page H1)</p>
+        <p class="text-2xl md:text-4xl font-bold leading-tight text-neutral-900">Custom Websites That Rank and Convert</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">heading-2 (Section heading)</p>
+        <p class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900">What We Do</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">heading-3 (Subsection heading)</p>
+        <p class="text-lg md:text-xl font-semibold leading-snug text-neutral-900">SEO-First Design</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">heading-4 (Feature title)</p>
+        <p class="text-base md:text-lg font-medium text-neutral-900">Transparent Pricing</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">body-large</p>
+        <p class="text-base md:text-lg leading-relaxed text-neutral-700">We design, build, and manage high-performance websites for small businesses and professional firms.</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">body</p>
+        <p class="text-base leading-relaxed text-neutral-700">Every website we build is engineered for SEO from the ground up. Fast load times, clean code, proper heading structure, schema markup, and optimized metadata.</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">body-small (caption/metadata)</p>
+        <p class="text-sm leading-relaxed text-neutral-400">Published April 15, 2026 &middot; 5 min read</p>
+      </div>
+      <div class="p-4 bg-white rounded-lg border border-neutral-200">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">label (eyebrow/badge)</p>
+        <p class="text-sm font-medium uppercase tracking-wide text-primary-light">Web Design &bull; SEO &bull; Consulting</p>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- BUTTONS -->
+  <Section background="white" padding="compact" id="buttons">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Buttons</h2>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Variants</h3>
+    <div class="flex flex-wrap gap-4 mb-8">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="ghost">Ghost</Button>
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Variant: White (on dark background)</h3>
+    <div class="bg-primary rounded-lg p-6 mb-8">
+      <Button variant="white">White Button</Button>
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Sizes</h3>
+    <div class="flex flex-wrap items-center gap-4 mb-8">
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium (default)</Button>
+      <Button size="lg">Large</Button>
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">All Variants x Sizes</h3>
+    <div class="space-y-4">
+      {(['primary', 'secondary', 'ghost'] as const).map((variant) => (
+        <div class="flex flex-wrap items-center gap-4">
+          <span class="text-sm text-neutral-400 w-20">{variant}</span>
+          <Button variant={variant} size="sm">Small</Button>
+          <Button variant={variant} size="md">Medium</Button>
+          <Button variant={variant} size="lg">Large</Button>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- CARDS -->
+  <Section background="light" padding="compact" id="cards">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Cards</h2>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Default (with hover)</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <Card>
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Card Title</h3>
+        <p class="text-base text-neutral-600 leading-relaxed">This is a default card with standard padding and hover shadow effect. Hover over it to see the shadow transition.</p>
+      </Card>
+      <Card padding="compact">
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Compact Card</h3>
+        <p class="text-base text-neutral-600 leading-relaxed">This card has compact padding for tighter layouts.</p>
+      </Card>
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">Static (no hover effect)</h3>
+    <Card hover={false}>
+      <h3 class="text-lg font-semibold text-neutral-900 mb-2">Static Card</h3>
+      <p class="text-base text-neutral-600 leading-relaxed">This card has no hover effect. Used for non-interactive content.</p>
+    </Card>
+  </Section>
+
+  <Divider />
+
+  <!-- BADGES -->
+  <Section background="white" padding="compact" id="badges">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Badges</h2>
+    <div class="flex flex-wrap gap-4">
+      <Badge>Default</Badge>
+      <Badge variant="accent">Accent</Badge>
+      <Badge variant="success">Success</Badge>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- SECTION INTRO -->
+  <Section background="light" padding="compact" id="section-intro">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-8">Section Intro</h2>
+
+    <div class="p-6 bg-white rounded-lg border border-neutral-200 mb-8">
+      <p class="text-xs text-neutral-400 mb-4 font-mono">Centered (default) with eyebrow</p>
+      <SectionIntro
+        eyebrow="Our Services"
+        heading="What We Do"
+        description="Everything your business needs to succeed online, under one roof."
+      />
+    </div>
+
+    <div class="p-6 bg-white rounded-lg border border-neutral-200 mb-8">
+      <p class="text-xs text-neutral-400 mb-4 font-mono">Left-aligned, heading-1 size</p>
+      <SectionIntro
+        align="left"
+        heading="Custom Websites That Rank and Convert"
+        headingSize="heading-1"
+        description="A beautiful website means nothing if nobody finds it. Every site we build is engineered for Google from the foundation up."
+      />
+    </div>
+
+    <div class="p-6 bg-white rounded-lg border border-neutral-200">
+      <p class="text-xs text-neutral-400 mb-4 font-mono">Centered, display size (hero use)</p>
+      <SectionIntro
+        heading="Websites That Work as Hard as You Do"
+        headingSize="display"
+      />
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- SECTION HEADING -->
+  <Section background="white" padding="compact" id="section-heading">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Section Heading (standalone)</h2>
+    <div class="space-y-4">
+      <div class="p-4 bg-neutral-50 rounded-lg">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">as="h2" size="heading-2" (default)</p>
+        <SectionHeading>Section Heading Default</SectionHeading>
+      </div>
+      <div class="p-4 bg-neutral-50 rounded-lg">
+        <p class="text-xs text-neutral-400 mb-2 font-mono">as="h3" size="heading-3"</p>
+        <SectionHeading as="h3" size="heading-3">Subsection Heading</SectionHeading>
+      </div>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- GRID -->
+  <Section background="light" padding="compact" id="grid">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Grid</h2>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">2 Columns</h3>
+    <Grid cols={2} class="mb-8">
+      <Card><p class="text-neutral-600 text-center">Column 1</p></Card>
+      <Card><p class="text-neutral-600 text-center">Column 2</p></Card>
+    </Grid>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">3 Columns</h3>
+    <Grid cols={3} class="mb-8">
+      <Card><p class="text-neutral-600 text-center">Column 1</p></Card>
+      <Card><p class="text-neutral-600 text-center">Column 2</p></Card>
+      <Card><p class="text-neutral-600 text-center">Column 3</p></Card>
+    </Grid>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">4 Columns</h3>
+    <Grid cols={4}>
+      <Card padding="compact"><p class="text-neutral-600 text-center">Col 1</p></Card>
+      <Card padding="compact"><p class="text-neutral-600 text-center">Col 2</p></Card>
+      <Card padding="compact"><p class="text-neutral-600 text-center">Col 3</p></Card>
+      <Card padding="compact"><p class="text-neutral-600 text-center">Col 4</p></Card>
+    </Grid>
+  </Section>
+
+  <Divider />
+
+  <!-- SPLIT LAYOUT -->
+  <Section background="white" padding="compact" id="split-layout">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Split Layout</h2>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">60/40 (default)</h3>
+    <div class="mb-8">
+      <SplitLayout>
+        <div class="bg-neutral-100 rounded-lg p-8">
+          <p class="text-neutral-600">Text content side (60%)</p>
+        </div>
+        <div class="bg-neutral-200 rounded-lg p-8">
+          <p class="text-neutral-600">Visual side (40%)</p>
+        </div>
+      </SplitLayout>
+    </div>
+
+    <h3 class="text-lg font-semibold text-neutral-800 mb-4">50/50</h3>
+    <SplitLayout split="50-50">
+      <div class="bg-neutral-100 rounded-lg p-8">
+        <p class="text-neutral-600">Left side (50%)</p>
+      </div>
+      <div class="bg-neutral-200 rounded-lg p-8">
+        <p class="text-neutral-600">Right side (50%)</p>
+      </div>
+    </SplitLayout>
+  </Section>
+
+  <Divider />
+
+  <!-- FORM ELEMENTS -->
+  <Section background="light" padding="compact" id="forms">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Form Elements</h2>
+    <div class="max-w-lg">
+      <div class="mb-5">
+        <label for="demo-name" class="block text-sm font-medium text-neutral-700 mb-1.5">Name</label>
+        <input
+          type="text"
+          id="demo-name"
+          placeholder="John Smith"
+          class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+        />
+      </div>
+      <div class="mb-5">
+        <label for="demo-email" class="block text-sm font-medium text-neutral-700 mb-1.5">Email</label>
+        <input
+          type="email"
+          id="demo-email"
+          placeholder="john@example.com"
+          class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+        />
+      </div>
+      <div class="mb-5">
+        <label for="demo-select" class="block text-sm font-medium text-neutral-700 mb-1.5">Service</label>
+        <select
+          id="demo-select"
+          class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors appearance-none bg-white"
+        >
+          <option value="">Select a service...</option>
+          <option>New Website</option>
+          <option>SEO</option>
+          <option>Website Management</option>
+        </select>
+      </div>
+      <div class="mb-5">
+        <label for="demo-textarea" class="block text-sm font-medium text-neutral-700 mb-1.5">Message</label>
+        <textarea
+          id="demo-textarea"
+          rows="4"
+          placeholder="Tell us about your project..."
+          class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors resize-y min-h-[120px]"
+        ></textarea>
+      </div>
+      <div class="mb-5">
+        <label for="demo-error" class="block text-sm font-medium text-neutral-700 mb-1.5">Error State</label>
+        <input
+          type="text"
+          id="demo-error"
+          value="invalid@"
+          class="w-full rounded-lg border border-error px-4 py-3 text-base text-neutral-900 focus:border-error focus:ring-2 focus:ring-error/20 focus:outline-none transition-colors"
+        />
+        <p class="text-sm text-error mt-1">Please enter a valid email address.</p>
+      </div>
+      <Button>Send Message</Button>
+    </div>
+  </Section>
+
+  <Divider />
+
+  <!-- FAQ -->
+  <Section background="white" padding="compact" id="faq">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">FAQ / Accordion</h2>
+    <FAQ items={faqItems} />
+  </Section>
+
+  <Divider />
+
+  <!-- PROCESS STEPS -->
+  <Section background="light" padding="compact" id="process">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Process Steps</h2>
+    <ProcessSteps steps={processSteps} />
+  </Section>
+
+  <Divider />
+
+  <!-- PRICING TABLE -->
+  <Section background="white" padding="compact" id="pricing">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Pricing Table</h2>
+    <PricingTable columns={pricingColumns} />
+  </Section>
+
+  <Divider />
+
+  <!-- HERO -->
+  <div id="hero">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6 mx-auto max-w-7xl px-6 md:px-8 pt-8">Hero</h2>
+
+    <p class="text-sm text-neutral-400 mb-4 mx-auto max-w-7xl px-6 md:px-8 font-mono">variant="home"</p>
+    <Hero
+      variant="home"
+      eyebrow="Web Design &bull; SEO &bull; Tech Consulting"
+      title="Websites That Work as Hard as You Do"
+      subtitle="We design, build, and manage high-performance websites for small businesses and professional firms, with SEO baked into every pixel."
+      primaryCta="Schedule a Free Consultation"
+      secondaryCta="See Our Work"
+      proofItems={['No long-term contracts', 'Transparent pricing', 'SEO-first approach']}
+    />
+
+    <p class="text-sm text-neutral-400 mb-4 mx-auto max-w-7xl px-6 md:px-8 pt-8 font-mono">variant="page"</p>
+    <Hero
+      variant="page"
+      title="Custom Websites That Rank and Convert"
+      subtitle="A beautiful website means nothing if nobody finds it. Every site we build is engineered for Google from the foundation up."
+      primaryCta="Get a Free Quote"
+      secondaryCta="View Portfolio"
+    />
+  </div>
+
+  <Divider />
+
+  <!-- CTA BANNER -->
+  <div id="cta">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6 mx-auto max-w-7xl px-6 md:px-8 pt-8">CTA Banner</h2>
+    <CTABanner />
+  </div>
+
+  <Divider />
+
+  <!-- SPACING REFERENCE -->
+  <Section background="white" padding="compact" id="spacing">
+    <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-6">Spacing Reference</h2>
+    <div class="space-y-4">
+      {[
+        { name: 'section-y (default)', class: 'py-12 md:py-20', desc: 'Top/bottom padding for sections' },
+        { name: 'section-y-compact', class: 'py-8 md:py-12', desc: 'Smaller sections (CTA, sub-sections)' },
+        { name: 'stack-xl', class: 'space-y-12', desc: 'Between major content groups' },
+        { name: 'stack-lg', class: 'space-y-8', desc: 'Between content blocks' },
+        { name: 'stack-md', class: 'space-y-6', desc: 'Between related items' },
+        { name: 'stack-sm', class: 'space-y-4', desc: 'Between closely related items' },
+        { name: 'stack-xs', class: 'space-y-2', desc: 'Between tightly coupled items' },
+      ].map((token) => (
+        <div class="flex items-center gap-4 p-3 bg-neutral-50 rounded-lg">
+          <span class="text-sm font-semibold text-neutral-900 w-48">{token.name}</span>
+          <code class="text-xs text-primary-light bg-neutral-100 px-2 py-1 rounded font-mono">{token.class}</code>
+          <span class="text-sm text-neutral-500">{token.desc}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Bottom padding -->
+  <div class="h-20"></div>
+</BaseLayout>

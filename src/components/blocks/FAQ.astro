@@ -1,0 +1,73 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+---
+
+<div class:list={['max-w-3xl mx-auto', className]}>
+  {items.map((item, index) => (
+    <div class="faq__item" data-faq-item>
+      <button
+        class="faq__trigger"
+        aria-expanded="false"
+        aria-controls={`faq-content-${index}`}
+        data-faq-trigger
+      >
+        <span>{item.question}</span>
+        <svg class="faq__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div
+        id={`faq-content-${index}`}
+        class="faq__content"
+        hidden
+      >
+        <p>{item.answer}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  @reference "../../styles/global.css";
+  .faq__item {
+    @apply border-b border-neutral-200;
+  }
+  .faq__trigger {
+    @apply flex w-full items-center justify-between py-5 text-left text-lg font-semibold text-neutral-900 hover:text-primary-light transition-colors cursor-pointer;
+  }
+  .faq__icon {
+    @apply w-5 h-5 text-neutral-400 transition-transform duration-200 shrink-0 ml-4;
+  }
+  .faq__trigger[aria-expanded="true"] .faq__icon {
+    @apply rotate-180;
+  }
+  .faq__content {
+    @apply pb-5 text-base leading-relaxed text-neutral-600;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-faq-trigger]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = contentId ? document.getElementById(contentId) : null;
+
+      trigger.setAttribute('aria-expanded', String(!expanded));
+
+      if (content) {
+        content.hidden = expanded;
+      }
+    });
+  });
+</script>

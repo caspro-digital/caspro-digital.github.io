@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://casprodigital.com/sitemap-index.xml

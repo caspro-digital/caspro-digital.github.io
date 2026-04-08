@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Section from '../../components/layout/Section.astro';
+import Grid from '../../components/layout/Grid.astro';
+import SectionIntro from '../../components/ui/SectionIntro.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import PricingTable from '../../components/blocks/PricingTable.astro';
+import ProcessSteps from '../../components/blocks/ProcessSteps.astro';
+import CTABanner from '../../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Web Design' },
+];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://casprodigital.com/services/' },
+      { '@type': 'ListItem', position: 3, name: 'Web Design', item: 'https://casprodigital.com/services/web-design/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Custom Web Design & Development',
+    description: 'Custom, SEO-optimized website design and development for small businesses. Mobile-first, fast-loading sites built to generate leads.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Caspro Digital',
+      url: 'https://casprodigital.com',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    url: 'https://casprodigital.com/services/web-design/',
+    offers: {
+      '@type': 'AggregateOffer',
+      lowPrice: '1500',
+      highPrice: '10000',
+      priceCurrency: 'USD',
+    },
+  },
+];
+
+const features = [
+  {
+    icon: 'monitor',
+    title: 'Mobile-First Responsive Design',
+    description: 'Your site looks and works perfectly on every device. Over 60% of web traffic is mobile \u2014 we design for that reality first.',
+  },
+  {
+    icon: 'search',
+    title: 'SEO Foundation',
+    description: 'Proper heading structure, schema markup, optimized metadata, XML sitemap, fast load times, and clean URLs. Built to rank from day one.',
+  },
+  {
+    icon: 'zap',
+    title: 'Speed Optimization',
+    description: 'Optimized images, minimal code, and modern hosting. We target sub-2-second load times because Google \u2014 and your visitors \u2014 won\u2019t wait.',
+  },
+  {
+    icon: 'trending-up',
+    title: 'Conversion-Focused Design',
+    description: 'Strategic calls-to-action, clear navigation, and persuasive page layouts that guide visitors toward contacting you or making a purchase.',
+  },
+  {
+    icon: 'file-text',
+    title: 'Content Management',
+    description: 'Easy-to-update content so you\u2019re never dependent on a developer for simple text changes or blog posts.',
+  },
+  {
+    icon: 'bar-chart',
+    title: 'Analytics & Tracking',
+    description: 'Google Analytics 4 and Search Console installed and configured so you can see exactly how your site is performing from day one.',
+  },
+];
+
+const pricingColumns = [
+  {
+    name: 'Starter',
+    price: '$1,500 \u2013 $2,500',
+    description: 'New businesses needing a professional presence fast.',
+    features: [
+      { text: '5\u20137 pages', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'SEO foundation', included: true },
+      { text: 'Contact forms', included: true },
+      { text: 'Basic schema markup', included: true },
+      { text: '2 rounds of revisions', included: true },
+      { text: '2\u20133 week timeline', included: true },
+      { text: 'Blog', included: false },
+      { text: 'Booking integration', included: false },
+      { text: 'E-commerce', included: false },
+      { text: 'Custom functionality', included: false },
+    ],
+  },
+  {
+    name: 'Professional',
+    price: '$3,000 \u2013 $5,000',
+    description: 'Established businesses ready to compete online.',
+    featured: true,
+    features: [
+      { text: '8\u201315 pages', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'SEO foundation', included: true },
+      { text: 'Contact forms', included: true },
+      { text: 'Advanced schema markup', included: true },
+      { text: '3 rounds of revisions', included: true },
+      { text: '3\u20135 week timeline', included: true },
+      { text: 'Blog', included: true },
+      { text: 'Booking integration', included: true },
+      { text: 'E-commerce', included: false },
+      { text: 'Custom functionality', included: false },
+    ],
+  },
+  {
+    name: 'Premium',
+    price: '$5,000 \u2013 $10,000+',
+    description: 'Businesses with complex needs or e-commerce.',
+    features: [
+      { text: 'Custom page count', included: true },
+      { text: 'Mobile responsive', included: true },
+      { text: 'SEO foundation', included: true },
+      { text: 'Contact forms', included: true },
+      { text: 'Advanced schema markup', included: true },
+      { text: 'Unlimited revisions', included: true },
+      { text: '5\u20138 week timeline', included: true },
+      { text: 'Blog', included: true },
+      { text: 'Booking integration', included: true },
+      { text: 'E-commerce', included: true },
+      { text: 'Custom functionality', included: true },
+    ],
+  },
+];
+
+const processSteps = [
+  { number: 1, title: 'Discovery Call', description: 'We learn about your business, goals, and audience to create a tailored plan.' },
+  { number: 2, title: 'Strategy & Design', description: 'Site architecture, visual design, and content plan \u2014 approved by you before we build.' },
+  { number: 3, title: 'Build & Launch', description: 'We develop with SEO, speed, and conversions as the priority. You review and we refine.' },
+  { number: 4, title: 'Grow & Optimize', description: 'Ongoing management, monitoring, and optimization to keep your site performing.' },
+];
+---
+
+<BaseLayout
+  title="Custom Web Design for Small Businesses | Caspro Digital"
+  description="Custom, SEO-optimized website design and development for small businesses. Mobile-first, fast-loading sites built to generate leads. Starting at $1,500."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Custom Websites That Rank and Convert"
+    subtitle="A beautiful website means nothing if nobody finds it. Every site we build is engineered for Google from the foundation up \u2014 fast, mobile-first, and designed to turn visitors into paying customers."
+    primaryCta="Get a Free Quote"
+    primaryHref="/contact/"
+    secondaryCta="View Portfolio"
+    secondaryHref="/portfolio/"
+  />
+
+  <!-- What's Included (light bg) -->
+  <Section background="light">
+    <SectionIntro
+      heading="What Every Caspro Digital Website Includes"
+    />
+    <Grid cols={3}>
+      {features.map((feature) => (
+        <Card class="h-full">
+          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+            <Icon name={feature.icon} size={20} class="text-primary-light" />
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-900 mb-2">{feature.title}</h3>
+          <p class="text-base text-neutral-600 leading-relaxed">{feature.description}</p>
+        </Card>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- Pricing (white bg) -->
+  <Section background="white">
+    <SectionIntro heading="Website Packages" />
+    <PricingTable columns={pricingColumns} />
+  </Section>
+
+  <!-- Process (light bg) -->
+  <Section background="light">
+    <SectionIntro
+      heading="Our Process"
+      description="A proven approach that delivers results on time and on budget."
+    />
+    <ProcessSteps steps={processSteps} />
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>
