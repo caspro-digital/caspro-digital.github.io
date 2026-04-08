@@ -28,6 +28,8 @@ export const footerCompany = [
   { label: 'Portfolio', href: '/portfolio/' },
   { label: 'Blog', href: '/blog/' },
   { label: 'Contact', href: '/contact/' },
+  { label: 'Industries', href: '/industries/' },
+  { label: 'Areas Served', href: '/areas-served/' },
 ];
 
 export const footerConnect = [
