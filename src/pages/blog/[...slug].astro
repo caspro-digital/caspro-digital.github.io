@@ -1,0 +1,152 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/layout/Section.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import Badge from '../../components/ui/Badge.astro';
+import CTABanner from '../../components/blocks/CTABanner.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: post.data.title },
+];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://casprodigital.com/blog/' },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: `https://casprodigital.com/blog/${post.id}/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.date.toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: post.data.author,
+      url: 'https://casprodigital.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Caspro Digital',
+      url: 'https://casprodigital.com',
+    },
+    mainEntityOfPage: `https://casprodigital.com/blog/${post.id}/`,
+  },
+];
+---
+
+<BaseLayout
+  title={`${post.data.title} | Caspro Digital`}
+  description={post.data.description}
+  ogImage={post.data.image}
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <Section background="white">
+    <article class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <header class="mb-8">
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {post.data.tags.map((tag) => (
+              <Badge>{tag}</Badge>
+            ))}
+          </div>
+        )}
+        <h1 class="text-2xl md:text-4xl font-bold leading-tight text-neutral-900 mb-4">
+          {post.data.title}
+        </h1>
+        <p class="text-sm text-neutral-400">
+          {formatDate(post.data.date)} &middot; {post.data.author}
+        </p>
+      </header>
+
+      <!-- Content -->
+      <div class="prose-content">
+        <Content />
+      </div>
+    </article>
+  </Section>
+
+  <CTABanner />
+</BaseLayout>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .prose-content :global(h2) {
+    @apply text-xl md:text-2xl font-semibold text-neutral-900 mt-8 mb-4;
+  }
+  .prose-content :global(h3) {
+    @apply text-lg font-semibold text-neutral-900 mt-6 mb-3;
+  }
+  .prose-content :global(p) {
+    @apply text-base leading-relaxed text-neutral-700 mb-4;
+  }
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    @apply mb-4 pl-6 space-y-2;
+  }
+  .prose-content :global(ul) {
+    @apply list-disc;
+  }
+  .prose-content :global(ol) {
+    @apply list-decimal;
+  }
+  .prose-content :global(li) {
+    @apply text-base text-neutral-700;
+  }
+  .prose-content :global(a) {
+    @apply text-primary-light hover:text-primary transition-colors underline;
+  }
+  .prose-content :global(strong) {
+    @apply font-semibold text-neutral-900;
+  }
+  .prose-content :global(em) {
+    @apply italic;
+  }
+  .prose-content :global(blockquote) {
+    @apply border-l-4 border-primary-light pl-4 my-6 text-neutral-600 italic;
+  }
+  .prose-content :global(code) {
+    @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+  .prose-content :global(pre) {
+    @apply bg-neutral-900 text-neutral-100 rounded-lg p-4 mb-4 overflow-x-auto;
+  }
+  .prose-content :global(pre code) {
+    @apply bg-transparent p-0;
+  }
+  .prose-content :global(hr) {
+    @apply border-t border-neutral-200 my-8;
+  }
+</style>

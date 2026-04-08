@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import Grid from '../components/layout/Grid.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Areas Served' },
+];
+
+const schemas = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Areas Served', item: 'https://casprodigital.com/areas-served/' },
+  ],
+}];
+
+const areas = [
+  {
+    name: 'Sanford, FL',
+    description: 'Our home base. We know the Sanford business community inside and out and are proud to help local businesses build a stronger digital presence right here in our own backyard.',
+  },
+  {
+    name: 'Orlando, FL',
+    description: 'The heart of Central Florida\u2019s economy. We help Orlando businesses stand out in one of the state\u2019s most competitive markets with websites and SEO strategies built for growth.',
+  },
+  {
+    name: 'Winter Park, FL',
+    description: 'A community that values quality and craftsmanship. We build websites for Winter Park businesses that reflect the same standards their customers expect.',
+  },
+  {
+    name: 'Lake Mary, FL',
+    description: 'A growing hub for professional services and technology companies. We help Lake Mary businesses establish and strengthen their online presence with modern, SEO-driven websites.',
+  },
+  {
+    name: 'Altamonte Springs, FL',
+    description: 'A vibrant community with a diverse business landscape. We help Altamonte Springs businesses compete online with professional websites and local SEO that drives real results.',
+  },
+];
+---
+
+<BaseLayout
+  title="Web Design & SEO in Central Florida | Sanford, Orlando & Beyond | Caspro Digital"
+  description="Caspro Digital provides web design, SEO, and digital services in Sanford, Orlando, Winter Park, Lake Mary, and throughout Central Florida. Also serving clients nationwide."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Serving Central Florida and Beyond"
+    subtitle="Caspro Digital is based in the Sanford, Florida area and proudly serves businesses throughout Central Florida and across the United States."
+  />
+
+  <!-- Intro (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600">
+        While every service we offer is delivered remotely — meaning we can
+        work with businesses anywhere — we have deep roots in the Central
+        Florida business community and a strong understanding of the local market.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Areas Grid (white bg) -->
+  <Section background="white">
+    <Grid cols={3}>
+      {areas.map((area) => (
+        <Card class="h-full">
+          <div class="flex items-center gap-2 mb-3">
+            <Icon name="map-pin" size={20} class="text-primary-light" />
+            <h2 class="text-lg font-semibold text-neutral-900">{area.name}</h2>
+          </div>
+          <p class="text-base text-neutral-600 leading-relaxed">{area.description}</p>
+        </Card>
+      ))}
+
+      <!-- Nationwide -->
+      <Card class="h-full bg-primary/5 border-primary-light/20">
+        <div class="flex items-center gap-2 mb-3">
+          <Icon name="globe" size={20} class="text-primary-light" />
+          <h2 class="text-lg font-semibold text-neutral-900">Nationwide Service</h2>
+        </div>
+        <p class="text-base text-neutral-600 leading-relaxed">
+          While we love working with Central Florida businesses, we're not
+          limited by geography. Our entire service model is built for remote
+          delivery, and we work with small businesses and professional firms
+          across the country. If you have an internet connection, we can help.
+        </p>
+      </Card>
+    </Grid>
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>

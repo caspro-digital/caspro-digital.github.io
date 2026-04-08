@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import SectionIntro from '../components/ui/SectionIntro.astro';
+import Icon from '../components/ui/Icon.astro';
+import Card from '../components/ui/Card.astro';
+import Grid from '../components/layout/Grid.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About' },
+];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'About', item: 'https://casprodigital.com/about/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Caspro Digital',
+    url: 'https://casprodigital.com',
+    description: 'Web design and SEO agency based in Central Florida, helping small businesses build powerful online presences.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Sanford',
+      addressRegion: 'FL',
+      addressCountry: 'US',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+  },
+];
+
+const values = [
+  {
+    icon: 'file-text',
+    title: 'Transparency Over Everything',
+    description: 'You\u2019ll never wonder what you\u2019re paying for or what we\u2019re working on. Clear pricing, clear reporting, clear communication.',
+  },
+  {
+    icon: 'trending-up',
+    title: 'Results Over Activity',
+    description: 'We don\u2019t measure success by how busy we are. We measure it by how much your traffic, leads, and revenue grow.',
+  },
+  {
+    icon: 'users',
+    title: 'Partnership Over Transactions',
+    description: 'We\u2019re not here to build you a website and move on. We\u2019re here to be your long-term digital partner \u2014 the team you call when you have a question about anything technology-related.',
+  },
+];
+---
+
+<BaseLayout
+  title="About Caspro Digital | Your Digital Partner"
+  description="Caspro Digital is a web design and SEO agency based in Central Florida, helping small businesses build powerful online presences. Meet the team behind the work."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Built to Be the Partner Small Businesses Deserve"
+    subtitle="Caspro Digital was founded on a simple observation: small businesses and professional firms deserve the same quality digital presence as the big players \u2014 without the big agency price tag or the big agency runaround."
+  />
+
+  <!-- Story (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto space-y-4 text-base md:text-lg leading-relaxed text-neutral-600">
+      <p>
+        Too many agencies sell a website and disappear. Too many SEO firms
+        deliver reports full of jargon and no actual results. Too many
+        consultants give advice without understanding how a small business
+        actually operates.
+      </p>
+      <p>
+        Caspro Digital is different because we built it to be. Every service,
+        every process, and every client relationship is designed around one
+        question: <strong class="text-neutral-900">is this actually helping the business grow?</strong>
+      </p>
+    </div>
+  </Section>
+
+  <!-- Values (white bg) -->
+  <Section background="white">
+    <SectionIntro heading="Our Values" />
+    <Grid cols={3}>
+      {values.map((value) => (
+        <Card class="h-full">
+          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+            <Icon name={value.icon} size={20} class="text-primary-light" />
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-900 mb-2">{value.title}</h3>
+          <p class="text-base text-neutral-600 leading-relaxed">{value.description}</p>
+        </Card>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- Location (light bg) -->
+  <Section background="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
+        Based in Central Florida. Working Nationwide.
+      </h2>
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600">
+        Headquartered in the Sanford, Florida area, Caspro Digital serves
+        small businesses and professional firms across the United States.
+        Every service we offer is delivered remotely, so geography is never
+        a barrier to working together.
+      </p>
+    </div>
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>

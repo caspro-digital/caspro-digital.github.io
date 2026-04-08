@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import SplitLayout from '../components/layout/SplitLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Contact' },
+];
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://casprodigital.com/contact/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Caspro Digital',
+    url: 'https://casprodigital.com',
+    email: 'hello@casprodigital.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Sanford',
+      addressRegion: 'FL',
+      addressCountry: 'US',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+  },
+];
+---
+
+<BaseLayout
+  title="Contact Caspro Digital | Free Consultation"
+  description="Get in touch with Caspro Digital for a free website consultation. Tell us about your business and we'll show you what's possible."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Let's Talk About Your Business"
+    subtitle="Whether you need a new website, want to improve your Google rankings, or just have a question about your digital presence \u2014 we're here to help."
+  />
+
+  <!-- Contact Form + Info (light bg) -->
+  <Section background="light">
+    <SplitLayout split="50-50" alignY="top">
+      <!-- Left: Copy + Contact Info -->
+      <div>
+        <div class="space-y-4 text-base md:text-lg leading-relaxed text-neutral-600 mb-8">
+          <p>
+            Every conversation starts with understanding your business and goals.
+            No pressure, no obligation, no hard sell.
+          </p>
+          <p>
+            Schedule a free 30-minute discovery call and we'll review your current
+            online presence, identify the biggest opportunities, and give you a
+            clear recommendation — even if it's not us.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Icon name="mail" size={20} class="text-primary-light" />
+            </div>
+            <div>
+              <p class="text-sm text-neutral-500">Email</p>
+              <a href="mailto:hello@casprodigital.com" class="text-primary-light hover:text-primary transition-colors font-medium">
+                hello@casprodigital.com
+              </a>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Icon name="map-pin" size={20} class="text-primary-light" />
+            </div>
+            <div>
+              <p class="text-sm text-neutral-500">Location</p>
+              <p class="text-neutral-900 font-medium">Central Florida (serving clients nationwide)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="bg-white rounded-xl border border-neutral-200 shadow-sm p-6 md:p-8">
+        <form
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          class="space-y-5"
+        >
+          <div>
+            <label for="name" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Name <span class="text-error">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="John Smith"
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Email <span class="text-error">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="john@example.com"
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Phone
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="(555) 123-4567"
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="business" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Business Name
+            </label>
+            <input
+              type="text"
+              id="business"
+              name="business"
+              placeholder="Your Business LLC"
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="service" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              What can we help you with? <span class="text-error">*</span>
+            </label>
+            <select
+              id="service"
+              name="service"
+              required
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors appearance-none bg-white"
+            >
+              <option value="">Select a service...</option>
+              <option value="New Website">New Website</option>
+              <option value="Website Redesign">Website Redesign</option>
+              <option value="SEO">SEO</option>
+              <option value="Website Management">Website Management</option>
+              <option value="Tech Consulting">Tech Consulting</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-neutral-700 mb-1.5">
+              Tell us about your project
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="What are your goals? Any specific challenges you're facing?"
+              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-primary-light focus:ring-2 focus:ring-primary-light/20 focus:outline-none transition-colors resize-y min-h-[120px]"
+            ></textarea>
+          </div>
+
+          <!-- Honeypot for spam -->
+          <div class="hidden" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <input type="hidden" name="_next" value="https://casprodigital.com/thank-you/" />
+
+          <Button type="submit" class="w-full text-center">Send Message</Button>
+        </form>
+      </div>
+    </SplitLayout>
+  </Section>
+</BaseLayout>

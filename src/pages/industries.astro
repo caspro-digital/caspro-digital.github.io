@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Industries' },
+];
+
+const schemas = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://casprodigital.com/industries/' },
+  ],
+}];
+
+const industries = [
+  {
+    title: 'Law Firms & Legal Practices',
+    copy: [
+      'Your potential clients are Googling "lawyer near me" right now. If your firm doesn\u2019t appear, you\u2019re losing cases to competitors with better websites, not better attorneys.',
+      'We build professional, trust-building websites with practice area pages optimized for local legal search terms, attorney bios that convert, and intake forms that capture leads 24/7.',
+    ],
+  },
+  {
+    title: 'Contractors & Home Services',
+    copy: [
+      'When a homeowner\u2019s AC breaks at 10pm, they\u2019re searching on their phone. Your website needs to load fast, look credible, and make it dead simple to call or request a quote.',
+      'We build mobile-first sites for HVAC, plumbing, electrical, roofing, and landscaping companies with service area pages, review integration, and local SEO that puts you on the map \u2014 literally.',
+    ],
+  },
+  {
+    title: 'Medical & Wellness Practices',
+    copy: [
+      'Med spas, dental offices, chiropractors, and therapists need websites that build trust instantly.',
+      'We create professional, HIPAA-aware websites with online booking integration, service descriptions that educate and convert, before/after galleries, and local SEO strategies that fill your appointment book.',
+    ],
+  },
+  {
+    title: 'Real Estate Agents & Brokerages',
+    copy: [
+      'In real estate, your personal brand IS your business.',
+      'We build polished, fast-loading websites with IDX property search integration, neighborhood guide pages that rank for local searches, and lead capture systems that turn website visitors into buyer and seller leads.',
+    ],
+  },
+  {
+    title: 'Restaurants & Hospitality',
+    copy: [
+      'Your menu, hours, location, and online ordering need to be accessible in two taps.',
+      'We build clean, fast restaurant websites with menu integration, reservation systems, Google Maps optimization, and local SEO that brings diners through your doors.',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Web Design for Law Firms, Contractors, Med Spas & More | Caspro Digital"
+  description="Caspro Digital builds websites and SEO strategies for law firms, contractors, medical practices, real estate agents, and restaurants. Industry-specific expertise."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Websites Built for Your Industry"
+    subtitle="Every industry has unique digital needs. A law firm\u2019s website serves a completely different purpose than a contractor\u2019s. That\u2019s why we don\u2019t do one-size-fits-all. We learn your industry, understand your customers, and build a digital presence that speaks directly to them."
+  />
+
+  <!-- Industries -->
+  {industries.map((industry, index) => (
+    <Section background={index % 2 === 0 ? 'light' : 'white'}>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
+          {industry.title}
+        </h2>
+        <div class="space-y-4 text-base md:text-lg leading-relaxed text-neutral-600 mb-6">
+          {industry.copy.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <Button href="/contact/" variant="ghost" size="sm">
+          Get started
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7" />
+          </svg>
+        </Button>
+      </div>
+    </Section>
+  ))}
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner
+    heading="Don't See Your Industry?"
+    description="We work with small businesses across every sector. If you have customers, we can help you reach more of them online."
+  />
+</BaseLayout>

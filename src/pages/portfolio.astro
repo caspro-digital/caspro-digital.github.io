@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import Grid from '../components/layout/Grid.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio' },
+];
+
+const schemas = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Portfolio', item: 'https://casprodigital.com/portfolio/' },
+  ],
+}];
+
+const projects = [
+  {
+    name: 'Project 1',
+    industry: 'Professional Services',
+    services: ['Web Design', 'SEO'],
+    description: 'Complete website redesign with SEO foundation, resulting in a modern, fast-loading site built to generate leads.',
+  },
+  {
+    name: 'Project 2',
+    industry: 'Home Services',
+    services: ['Web Design', 'Website Management'],
+    description: 'New mobile-first website with ongoing management, keeping the site secure, fast, and up-to-date.',
+  },
+  {
+    name: 'Project 3',
+    industry: 'Health & Wellness',
+    services: ['Web Design', 'SEO', 'Website Management'],
+    description: 'Full digital presence build with SEO strategy and monthly management retainer driving consistent growth.',
+  },
+];
+---
+
+<BaseLayout
+  title="Our Work | Web Design Portfolio | Caspro Digital"
+  description="See the websites and digital strategies Caspro Digital has built for small businesses. Real projects. Real results."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Our Work"
+    subtitle="Real projects. Real businesses. Real results. Every website you see here was built with the same approach \u2014 SEO-first architecture, conversion-focused design, and ongoing management that keeps it performing."
+  />
+
+  <!-- Projects (light bg) -->
+  <Section background="light">
+    <Grid cols={3}>
+      {projects.map((project) => (
+        <Card class="h-full flex flex-col">
+          <div class="aspect-video bg-neutral-200 rounded-lg mb-4 flex items-center justify-center">
+            <span class="text-neutral-400 text-sm">Screenshot coming soon</span>
+          </div>
+          <h3 class="text-lg font-semibold text-neutral-900 mb-2">{project.name}</h3>
+          <p class="text-sm text-neutral-500 mb-3">{project.industry}</p>
+          <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">{project.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {project.services.map((service) => (
+              <Badge>{service}</Badge>
+            ))}
+          </div>
+        </Card>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- More coming (white bg) -->
+  <Section background="white" padding="compact">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600">
+        We're adding new projects regularly. Want to see how we can help your business?
+      </p>
+    </div>
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>
