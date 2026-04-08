@@ -69,12 +69,28 @@ import Button from '../ui/Button.astro';
   const panel = document.getElementById('mobile-nav-panel');
   const close = document.getElementById('mobile-nav-close');
 
+  const focusableEls = panel?.querySelectorAll<HTMLElement>('a, button');
+
+  function setFocusable(enabled: boolean) {
+    focusableEls?.forEach((el) => {
+      if (enabled) {
+        el.removeAttribute('tabindex');
+      } else {
+        el.setAttribute('tabindex', '-1');
+      }
+    });
+  }
+
+  // Initialize: panel is hidden, so disable focus
+  setFocusable(false);
+
   function openMenu() {
     panel?.classList.remove('translate-x-full');
     panel?.classList.add('translate-x-0');
     panel?.setAttribute('aria-hidden', 'false');
     toggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    setFocusable(true);
   }
 
   function closeMenu() {
@@ -83,6 +99,7 @@ import Button from '../ui/Button.astro';
     panel?.setAttribute('aria-hidden', 'true');
     toggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    setFocusable(false);
   }
 
   toggle?.addEventListener('click', openMenu);
