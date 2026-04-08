@@ -11,6 +11,7 @@ import Button from '../components/ui/Button.astro';
 import ProcessSteps from '../components/blocks/ProcessSteps.astro';
 import FAQ from '../components/blocks/FAQ.astro';
 import CTABanner from '../components/blocks/CTABanner.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
 import { services } from '../data/services';
 
 const processSteps = [
@@ -99,12 +100,59 @@ const whyUsItems = [
       'Every retainer client gets monthly performance reports showing exactly how their site is performing, what\u2019s improving, and what we\u2019re working on next.',
   },
 ];
+
+const homepageSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Caspro Digital',
+    url: 'https://casprodigital.com',
+    description: 'Web design, SEO, and tech consulting for small businesses and professional firms.',
+    email: 'hello@casprodigital.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Sanford',
+      addressRegion: 'FL',
+      addressCountry: 'US',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Caspro Digital',
+    url: 'https://casprodigital.com',
+    email: 'hello@casprodigital.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Sanford',
+      addressRegion: 'FL',
+      addressCountry: 'US',
+    },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    priceRange: '$$',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  },
+];
 ---
 
 <BaseLayout
   title="Caspro Digital | Web Design, SEO & Tech Consulting"
   description="Caspro Digital builds high-performance websites and SEO strategies for small businesses and professional firms. Based in Central Florida, serving clients nationwide."
 >
+  <SchemaOrg schema={homepageSchemas} />
+
   <!-- Section 1: Hero (primary bg) -->
   <Hero
     variant="home"

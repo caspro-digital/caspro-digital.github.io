@@ -104,6 +104,19 @@ const faqItems = [
     answer: 'A new website is a great foundation, but without ongoing SEO, it\u2019s like opening a store with no sign on the road. SEO is what drives the traffic to your site and ensures you\u2019re visible when potential customers search for what you offer.',
   },
 ];
+
+schemas.push({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
 ---
 
 <BaseLayout
