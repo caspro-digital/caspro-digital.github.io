@@ -21,7 +21,7 @@ export const websiteBuildPlans: PricingColumn[] = [
     period: 'one-time + $199/mo',
     description: 'For new businesses that need a professional website fast.',
     features: [
-      { text: 'Custom website (5\u20138 pages)', included: true },
+      { text: 'Custom website (5–8 pages)', included: true },
       { text: 'Mobile-first responsive design', included: true },
       { text: 'SEO foundation & schema markup', included: true },
       { text: 'Contact forms & lead capture', included: true },
@@ -40,7 +40,7 @@ export const websiteBuildPlans: PricingColumn[] = [
     description: 'For businesses ready to compete online and grow.',
     featured: true,
     features: [
-      { text: 'Custom website (8\u201315 pages)', included: true },
+      { text: 'Custom website (8–15 pages)', included: true },
       { text: 'Mobile-first responsive design', included: true },
       { text: 'Advanced SEO & local optimization', included: true },
       { text: 'Blog & content management', included: true },
