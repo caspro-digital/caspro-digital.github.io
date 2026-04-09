@@ -1,7 +1,6 @@
 ---
 interface Feature {
   text: string;
-  included: boolean;
 }
 
 interface PricingColumn {
@@ -26,7 +25,7 @@ import Badge from '../ui/Badge.astro';
 const { columns, class: className = '' } = Astro.props;
 ---
 
-<div class:list={['grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8', className]}>
+<div class:list={['grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch', className]}>
   {columns.map((col) => (
     <div class:list={[
       'pricing-table__column',
@@ -44,24 +43,17 @@ const { columns, class: className = '' } = Astro.props;
       <ul class="pricing-table__features">
         {col.features.map((feature) => (
           <li class="pricing-table__feature">
-            {feature.included ? (
-              <svg class="pricing-table__check" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            ) : (
-              <svg class="w-5 h-5 text-neutral-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            )}
-            {!feature.included && <span class="sr-only">Not included: </span>}
-            <span class:list={[!feature.included && 'text-neutral-500']}>{feature.text}</span>
+            <svg class="pricing-table__check" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{feature.text}</span>
           </li>
         ))}
       </ul>
       <Button
         href={col.ctaHref || '/contact/'}
         variant={col.featured ? 'primary' : 'secondary'}
-        class="w-full text-center"
+        class="w-full text-center mt-auto"
       >
         {col.ctaText || 'Get Started'}
       </Button>
@@ -72,7 +64,7 @@ const { columns, class: className = '' } = Astro.props;
 <style>
   @reference "../../styles/global.css";
   .pricing-table__column {
-    @apply bg-white rounded-xl border border-neutral-200 p-6 md:p-8 relative;
+    @apply bg-white rounded-xl border border-neutral-200 p-6 md:p-8 relative flex flex-col;
   }
   .pricing-table__column--featured {
     @apply border-primary-light border-2 shadow-lg;
@@ -93,7 +85,7 @@ const { columns, class: className = '' } = Astro.props;
     @apply text-sm text-neutral-500 mb-6;
   }
   .pricing-table__features {
-    @apply space-y-3 mb-8;
+    @apply space-y-3 mb-8 flex-1;
   }
   .pricing-table__feature {
     @apply flex items-start gap-2 text-sm text-neutral-700;
