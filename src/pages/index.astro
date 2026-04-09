@@ -9,10 +9,11 @@ import Card from '../components/ui/Card.astro';
 import Icon from '../components/ui/Icon.astro';
 import Button from '../components/ui/Button.astro';
 import ProcessSteps from '../components/blocks/ProcessSteps.astro';
+import PricingTable from '../components/blocks/PricingTable.astro';
 import FAQ from '../components/blocks/FAQ.astro';
 import CTABanner from '../components/blocks/CTABanner.astro';
 import SchemaOrg from '../components/seo/SchemaOrg.astro';
-import { services } from '../data/services';
+import { websiteBuildPlans } from '../data/pricing';
 
 const processSteps = [
   {
@@ -45,7 +46,12 @@ const faqItems = [
   {
     question: 'How much does a website cost?',
     answer:
-      'Our website projects start at $1,500 for a 5\u20137 page business site and range up to $10,000+ for complex custom builds with e-commerce. Every project includes a detailed proposal with transparent pricing before any work begins. Most of our small business clients invest between $2,000\u2013$5,000 for their website plus a monthly retainer starting at $150/month for ongoing management.',
+      'Our website builds start at $2,500 for a 5\u20138 page business site, which includes SEO setup, hosting, and ongoing management starting at $199/month. Most small business clients invest between $2,500\u2013$7,000 for their site plus a monthly management retainer. Every project includes a detailed proposal with transparent pricing before any work begins.',
+  },
+  {
+    question: 'What if I already have a website?',
+    answer:
+      'We offer Growth & Management plans starting at $299/month for businesses that already have a site. We\u2019ll audit your current website, take over hosting and security, improve your SEO, and send you monthly performance reports. No setup fee required \u2014 just ongoing improvement.',
   },
   {
     question: 'How long does it take to build a website?',
@@ -55,17 +61,12 @@ const faqItems = [
   {
     question: 'Do I need to sign a long-term contract?',
     answer:
-      'No. Our retainer agreements start with a 3-month minimum to allow enough time to demonstrate results, then continue month-to-month. You can cancel with 30 days notice at any time. We believe in earning your business every month, not locking you in.',
+      'No. Our agreements start with a 3-month minimum to allow enough time to demonstrate results, then continue month-to-month. You can cancel with 30 days notice at any time. We believe in earning your business every month, not locking you in.',
   },
   {
     question: 'Will my website show up on Google?',
     answer:
-      'Every website we build is engineered for SEO from the ground up \u2014 fast load times, clean code, proper heading structure, schema markup, and optimized metadata. For clients who add our SEO retainer, we actively work on improving your rankings through content strategy, link building, and ongoing optimization.',
-  },
-  {
-    question: 'I already have a website. Can you improve it?',
-    answer:
-      'Absolutely. We offer website audits that identify exactly what\u2019s holding your site back. From there, we can recommend a redesign, an optimization plan, or targeted improvements depending on what will move the needle most for your business.',
+      'Every website we build is engineered for SEO from the ground up \u2014 fast load times, clean code, proper heading structure, schema markup, and optimized metadata. Our management retainers include ongoing SEO monitoring and improvements to keep your rankings climbing.',
   },
   {
     question: 'Do you work with businesses outside of Florida?',
@@ -107,7 +108,7 @@ const homepageSchemas = [
     '@type': 'Organization',
     name: 'Caspro Digital',
     url: 'https://casprodigital.com',
-    description: 'Web design, SEO, and tech consulting for small businesses and professional firms.',
+    description: 'Web design, SEO, and website management for small businesses and professional firms.',
     email: 'hello@casprodigital.com',
     address: {
       '@type': 'PostalAddress',
@@ -148,17 +149,17 @@ const homepageSchemas = [
 ---
 
 <BaseLayout
-  title="Caspro Digital | Web Design, SEO & Tech Consulting"
-  description="Caspro Digital builds high-performance websites and SEO strategies for small businesses and professional firms. Based in Central Florida, serving clients nationwide."
+  title="Caspro Digital | Web Design & SEO for Small Businesses"
+  description="Caspro Digital builds and manages high-performance websites for small businesses. SEO-first design, transparent pricing, and fully managed service. Based in Central Florida, serving clients nationwide."
 >
   <SchemaOrg schema={homepageSchemas} />
 
-  <!-- Section 1: Hero (primary bg) -->
+  <!-- Hero (primary bg) -->
   <Hero
     variant="home"
-    eyebrow="Web Design &bull; SEO &bull; Tech Consulting"
-    title="Websites That Work as Hard as You Do"
-    subtitle="We design, build, and manage high-performance websites for small businesses and professional firms — with SEO baked into every pixel. You focus on running your business. We handle your entire digital presence."
+    eyebrow="Web Design &bull; SEO &bull; Managed Websites"
+    title="Websites That Get Your Business Found on Google"
+    subtitle="We build and manage high-performance websites for small businesses \u2014 with SEO, hosting, security, and monthly optimization included. You run your business. We make your website work."
     primaryCta="Schedule a Free Consultation"
     primaryHref="/contact/"
     secondaryCta="See Our Work"
@@ -170,58 +171,65 @@ const homepageSchemas = [
     ]}
   />
 
-  <!-- Section 2: The Problem (light bg) -->
+  <!-- Two-Path Section (light bg) -->
   <Section background="light">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
-        Your Website Should Be Your Best Salesperson
-      </h2>
-      <div class="space-y-4 text-base md:text-lg leading-relaxed text-neutral-600">
-        <p>
-          Most small business websites are digital brochures that sit there doing nothing.
-          No traffic. No leads. No strategy behind them.
+    <Grid cols={2}>
+      <Card class="h-full flex flex-col">
+        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+          <Icon name="monitor" size={24} class="text-primary-light" />
+        </div>
+        <h2 class="text-lg md:text-xl font-semibold text-neutral-900 mb-2">Need a New Website?</h2>
+        <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">
+          We design and build modern, SEO-optimized websites that look professional and generate leads. Custom-built for your business, ready to rank on Google from day one.
         </p>
-        <p>
-          Meanwhile, your competitors are showing up on Google, collecting leads while
-          they sleep, and growing their business online.
+        <a
+          href="/services/"
+          class="text-primary-light font-medium text-sm hover:text-primary transition-colors inline-flex items-center gap-1"
+        >
+          Learn about website builds
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </Card>
+      <Card class="h-full flex flex-col">
+        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+          <Icon name="trending-up" size={24} class="text-primary-light" />
+        </div>
+        <h2 class="text-lg md:text-xl font-semibold text-neutral-900 mb-2">Already Have a Website?</h2>
+        <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">
+          We improve your SEO, speed, and security \u2014 then manage everything monthly. Your website gets better every month without you thinking about it.
         </p>
-        <p>
-          The difference isn't luck. It's having a website built with intention — designed
-          to rank, engineered to convert, and maintained to perform month after month.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Section 3: Services Overview (white bg) -->
-  <Section background="white">
-    <SectionIntro
-      heading="What We Do"
-      description="Everything your business needs to succeed online — under one roof."
-    />
-    <Grid cols={4}>
-      {services.map((service) => (
-        <Card class="h-full flex flex-col">
-          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-            <Icon name={service.icon} size={24} class="text-primary-light" />
-          </div>
-          <h3 class="text-lg font-semibold text-neutral-900 mb-2">{service.name}</h3>
-          <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">
-            {service.description}
-          </p>
-          <a
-            href={service.href}
-            class="text-primary-light font-medium text-sm hover:text-primary transition-colors inline-flex items-center gap-1"
-          >
-            Learn more about {service.name.toLowerCase()}
-            <Icon name="arrow-right" size={16} />
-          </a>
-        </Card>
-      ))}
+        <a
+          href="/services/#growth"
+          class="text-primary-light font-medium text-sm hover:text-primary transition-colors inline-flex items-center gap-1"
+        >
+          Learn about growth & management
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </Card>
     </Grid>
   </Section>
 
-  <!-- Section 4: Why Caspro Digital (light bg) -->
+  <!-- Pricing Preview (white bg) -->
+  <Section background="white">
+    <SectionIntro
+      heading="Simple, Transparent Pricing"
+      description="Every project includes SEO, hosting, security, and ongoing management. No hidden fees."
+    />
+    <PricingTable columns={websiteBuildPlans} />
+    <div class="max-w-2xl mx-auto text-center mt-8 md:mt-12">
+      <p class="text-base md:text-lg leading-relaxed text-neutral-600 mb-6">
+        Already have a website? Our Growth & Management plans start at $299/mo with no setup fee. We'll audit your site, take over hosting and security, and start improving your SEO immediately.
+      </p>
+      <Button href="/services/#growth" variant="ghost">
+        Learn More
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7" />
+        </svg>
+      </Button>
+    </div>
+  </Section>
+
+  <!-- Why Caspro Digital (light bg) -->
   <Section background="light">
     <SplitLayout split="60-40" alignY="top">
       <div>
@@ -249,16 +257,16 @@ const homepageSchemas = [
     </SplitLayout>
   </Section>
 
-  <!-- Section 5: The Process (white bg) -->
+  <!-- The Process (white bg) -->
   <Section background="white">
     <SectionIntro
       heading="How It Works"
-      description="From first conversation to launch and beyond — here's what working with Caspro Digital looks like."
+      description="From first conversation to launch and beyond \u2014 here's what working with Caspro Digital looks like."
     />
     <ProcessSteps steps={processSteps} />
   </Section>
 
-  <!-- Section 6: Social Proof (light bg) -->
+  <!-- Social Proof (light bg) -->
   <Section background="light" padding="compact">
     <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-neutral-600">
       <div class="flex items-center gap-2">
@@ -276,12 +284,12 @@ const homepageSchemas = [
     </div>
   </Section>
 
-  <!-- Section 7: FAQ (white bg) -->
+  <!-- FAQ (white bg) -->
   <Section background="white">
     <SectionIntro heading="Frequently Asked Questions" />
     <FAQ items={faqItems} />
   </Section>
 
-  <!-- Section 8: CTA Banner (primary bg) -->
+  <!-- CTA Banner (primary bg) -->
   <CTABanner />
 </BaseLayout>

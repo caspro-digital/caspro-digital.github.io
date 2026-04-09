@@ -4,39 +4,26 @@ export interface Service {
   description: string;
   icon: string;
   href: string;
+  startingPrice: string;
 }
 
 export const services: Service[] = [
   {
-    name: 'Web Design & Development',
-    slug: 'web-design',
+    name: 'Website Builds',
+    slug: 'website-builds',
     description:
-      'Custom websites built for speed, SEO, and conversions. Every site is mobile-first, lightning fast, and designed to turn visitors into customers.',
+      'Custom websites designed to rank on Google and convert visitors into customers. Mobile-first, lightning fast, with SEO baked into every page. Includes hosting, security, and ongoing management.',
     icon: 'monitor',
-    href: '/services/web-design/',
+    href: '/services/',
+    startingPrice: 'From $2,500 + $199/mo',
   },
   {
-    name: 'Search Engine Optimization',
-    slug: 'seo',
+    name: 'Website Growth & Management',
+    slug: 'growth-management',
     description:
-      'Data-driven SEO strategies that get your business found on Google. From local search to national rankings, we put you in front of the right people.',
-    icon: 'search',
-    href: '/services/seo/',
-  },
-  {
-    name: 'Website Management',
-    slug: 'website-management',
-    description:
-      'Hosting, security, updates, and performance monitoring — handled. Your site stays fast, secure, and up-to-date without you lifting a finger.',
-    icon: 'shield',
-    href: '/services/website-management/',
-  },
-  {
-    name: 'Tech Consulting',
-    slug: 'tech-consulting',
-    description:
-      'Strategic technology guidance for businesses that need more than just a website. We help you choose the right tools, streamline workflows, and make smarter digital decisions.',
-    icon: 'lightbulb',
-    href: '/services/tech-consulting/',
+      'Already have a website? We take over hosting, security, updates, SEO improvements, and monthly performance reporting. Your site gets better every single month without you lifting a finger.',
+    icon: 'trending-up',
+    href: '/services/#growth',
+    startingPrice: 'From $299/mo',
   },
 ];

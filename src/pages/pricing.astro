@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/layout/Section.astro';
+import SectionIntro from '../components/ui/SectionIntro.astro';
+import PricingTable from '../components/blocks/PricingTable.astro';
+import FAQ from '../components/blocks/FAQ.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import { websiteBuildPlans, managementPlans } from '../data/pricing';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Pricing' },
+];
+
+const schemas = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://casprodigital.com/pricing/' },
+  ],
+}];
+
+const faqItems = [
+  {
+    question: 'Is there a setup fee for management-only plans?',
+    answer: 'No. If you already have a website, we\u2019ll audit it and migrate it to our managed hosting at no additional cost. Your monthly plan starts immediately.',
+  },
+  {
+    question: 'What happens after my 3-month minimum?',
+    answer: 'Your plan continues month-to-month. You can cancel with 30 days notice at any time. No cancellation fees.',
+  },
+  {
+    question: 'Can I upgrade my plan later?',
+    answer: 'Absolutely. You can move between plans at any time. Most clients start with Growth and add services as their business grows.',
+  },
+  {
+    question: 'Do you offer custom pricing for larger projects?',
+    answer: 'Yes. For e-commerce, custom web applications, or businesses with complex needs, we provide custom proposals after a discovery call. Contact us and we\u2019ll scope it out.',
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing | Web Design & Website Management Plans | Caspro Digital"
+  description="Transparent pricing for website builds and monthly management plans. Website projects from $2,500. Management from $199/mo. No hidden fees."
+>
+  <SchemaOrg schema={schemas} />
+  <Breadcrumbs items={breadcrumbItems} />
+
+  <!-- Hero (primary bg) -->
+  <Hero
+    variant="page"
+    title="Simple, Transparent Pricing"
+    subtitle="No hidden fees. No surprise invoices. Every plan includes SEO, hosting, security, and ongoing management."
+  />
+
+  <!-- Website Build Plans (light bg) -->
+  <Section background="light">
+    <SectionIntro
+      heading="Website Build Plans"
+      description="One-time build + monthly management. Every plan includes hosting, SSL, security, and SEO."
+    />
+    <PricingTable columns={websiteBuildPlans} />
+  </Section>
+
+  <!-- Management Plans (white bg) -->
+  <Section background="white">
+    <SectionIntro
+      heading="Already Have a Website?"
+      description="Our management-only plans are for businesses that already have a website and want ongoing SEO, maintenance, and optimization."
+    />
+    <PricingTable columns={managementPlans} />
+  </Section>
+
+  <!-- FAQ (light bg) -->
+  <Section background="light">
+    <SectionIntro heading="Pricing Questions" />
+    <FAQ items={faqItems} />
+  </Section>
+
+  <!-- CTA Banner (primary bg) -->
+  <CTABanner />
+</BaseLayout>

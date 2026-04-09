@@ -12,7 +12,7 @@ import Button from '../ui/Button.astro';
     aria-controls="mobile-nav-panel"
   >
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   </button>
 
@@ -36,26 +36,12 @@ import Button from '../ui/Button.astro';
 
     <nav class="px-6 py-4 space-y-1" aria-label="Mobile navigation">
       {mainNav.map((item) => (
-        <div>
-          <a
-            href={item.href}
-            class="block py-3 text-lg font-medium text-neutral-900 hover:text-primary-light transition-colors border-b border-neutral-100"
-          >
-            {item.label}
-          </a>
-          {item.children && (
-            <div class="pl-4 space-y-1">
-              {item.children.map((child) => (
-                <a
-                  href={child.href}
-                  class="block py-2 text-base text-neutral-600 hover:text-primary-light transition-colors"
-                >
-                  {child.label}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
+        <a
+          href={item.href}
+          class="block py-3 text-lg font-medium text-neutral-900 hover:text-primary-light transition-colors border-b border-neutral-100"
+        >
+          {item.label}
+        </a>
       ))}
       <div class="pt-6">
         <Button href="/contact/" class="w-full text-center">Get Started</Button>
@@ -81,7 +67,6 @@ import Button from '../ui/Button.astro';
     });
   }
 
-  // Initialize: panel is hidden, so disable focus
   setFocusable(false);
 
   function openMenu() {
@@ -105,12 +90,10 @@ import Button from '../ui/Button.astro';
   toggle?.addEventListener('click', openMenu);
   close?.addEventListener('click', closeMenu);
 
-  // Close on link click
   panel?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });

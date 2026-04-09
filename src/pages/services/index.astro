@@ -2,141 +2,155 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/blocks/Hero.astro';
 import Section from '../../components/layout/Section.astro';
-import Grid from '../../components/layout/Grid.astro';
+import SplitLayout from '../../components/layout/SplitLayout.astro';
 import SectionIntro from '../../components/ui/SectionIntro.astro';
-import Card from '../../components/ui/Card.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Button from '../../components/ui/Button.astro';
 import CTABanner from '../../components/blocks/CTABanner.astro';
 import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
 import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import { services } from '../../data/services';
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Services' },
 ];
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: breadcrumbItems
-    .filter((item) => item.href)
-    .map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.label,
-      item: `https://casprodigital.com${item.href}`,
-    }))
-    .concat({
-      '@type': 'ListItem',
-      position: breadcrumbItems.length,
-      name: 'Services',
-      item: 'https://casprodigital.com/services/',
-    }),
-};
-
-const serviceSchemas = services.map((service) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: service.name,
-  description: service.description,
-  provider: {
-    '@type': 'Organization',
-    name: 'Caspro Digital',
-    url: 'https://casprodigital.com',
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://casprodigital.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://casprodigital.com/services/' },
+    ],
   },
-  url: `https://casprodigital.com${service.href}`,
-}));
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Website Builds',
+    description: 'Custom websites designed to rank on Google and convert visitors into customers. Mobile-first, SEO-first, fully managed.',
+    provider: { '@type': 'Organization', name: 'Caspro Digital', url: 'https://casprodigital.com' },
+    url: 'https://casprodigital.com/services/',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Website Growth & Management',
+    description: 'Ongoing SEO, hosting, security, and monthly optimization for existing websites.',
+    provider: { '@type': 'Organization', name: 'Caspro Digital', url: 'https://casprodigital.com' },
+    url: 'https://casprodigital.com/services/#growth',
+  },
+];
 
-const pricingRanges: Record<string, string> = {
-  'web-design': '$1,500 \u2013 $10,000+',
-  seo: '$500 \u2013 $2,500/mo',
-  'website-management': '$150 \u2013 $500/mo',
-  'tech-consulting': '$250 \u2013 $1,500/mo',
-};
+const buildFeatures = [
+  'Custom design tailored to your brand and industry',
+  'Mobile-first responsive on every device',
+  'SEO foundation: schema markup, meta tags, fast load times',
+  'Contact forms and lead capture',
+  'Google Analytics and Search Console setup',
+  'Managed hosting, SSL, and daily backups',
+  'Ongoing security monitoring',
+  'Monthly content updates included',
+];
 
-const expandedDescriptions: Record<string, string> = {
-  'web-design':
-    'Custom, SEO-optimized websites built to generate leads and grow your business. Every site is mobile-first, lightning fast, and designed to turn visitors into paying customers.',
-  seo:
-    'Data-driven SEO strategies that get your business found on Google. From local search to national rankings, we put you in front of the right people at the right time.',
-  'website-management':
-    'Hosting, security, backups, updates, and performance monitoring \u2014 all handled. Your site stays fast, secure, and up-to-date without you lifting a finger.',
-  'tech-consulting':
-    'Strategic technology guidance for businesses that need more than just a website. We help you choose the right tools, streamline workflows, and make smarter digital decisions.',
-};
+const growthFeatures = [
+  'Full site audit and migration to managed hosting',
+  'SSL, security monitoring, and daily backups',
+  'Uptime and performance monitoring',
+  'Monthly SEO improvements and keyword tracking',
+  'Content updates (hours per month based on plan)',
+  'Monthly analytics and performance reports',
+  'Google Business Profile optimization',
+  'Priority support',
+];
 ---
 
 <BaseLayout
-  title="Digital Services for Small Businesses | Caspro Digital"
-  description="Web design, SEO, website management, and tech consulting services built for small businesses and professional firms. Transparent pricing. Real results."
+  title="Web Design & Website Management for Small Businesses | Caspro Digital"
+  description="Custom website builds and ongoing website management for small businesses. SEO-first design, transparent pricing, fully managed hosting and security. See how we help."
 >
-  <SchemaOrg schema={[breadcrumbSchema, ...serviceSchemas]} />
+  <SchemaOrg schema={schemas} />
   <Breadcrumbs items={breadcrumbItems} />
 
   <!-- Hero (primary bg) -->
   <Hero
     variant="page"
-    title="Digital Services Built for Growth"
-    subtitle="Caspro Digital provides everything your business needs to build, grow, and manage its online presence \u2014 all under one roof, with one team that knows your business inside and out."
-    primaryCta="Schedule a Free Discovery Call"
-    primaryHref="/contact/"
+    title="How We Help"
+    subtitle="Whether you need a brand new website or want to improve the one you have, we handle the design, SEO, hosting, security, and ongoing optimization \u2014 so you don\u2019t have to."
+    primaryCta="See Pricing"
+    primaryHref="/pricing/"
+    secondaryCta="Schedule a Call"
+    secondaryHref="/contact/"
   />
 
-  <!-- Intro copy (light bg) -->
+  <!-- Website Builds (light bg) -->
   <Section background="light">
-    <div class="max-w-3xl mx-auto text-center">
-      <p class="text-base md:text-lg leading-relaxed text-neutral-600">
-        Every service is designed to work together. Your website feeds your SEO.
-        Your SEO drives traffic. Your management retainer ensures everything keeps
-        performing. And our consulting makes sure you're making the right technology
-        decisions at every step.
-      </p>
-    </div>
+    <SplitLayout split="50-50" alignY="top">
+      <div>
+        <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-2">Website Builds</h2>
+        <p class="text-sm font-medium text-primary-light mb-4">For businesses that need a new website or a complete redesign.</p>
+        <p class="text-base md:text-lg leading-relaxed text-neutral-600 mb-6">
+          Every website we build is custom-designed, mobile-first, and engineered to rank on Google from day one. We don't use templates. We don't cut corners on SEO. And we don't disappear after launch \u2014 every build includes managed hosting, security, and ongoing support.
+        </p>
+        <Button href="/pricing/" variant="ghost" size="sm">
+          See Pricing
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7" />
+          </svg>
+        </Button>
+      </div>
+      <div class="space-y-3">
+        {buildFeatures.map((feature) => (
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-success shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-base text-neutral-700">{feature}</span>
+          </div>
+        ))}
+      </div>
+    </SplitLayout>
   </Section>
 
-  <!-- Service Cards (white bg) -->
-  <Section background="white">
-    <Grid cols={2}>
-      {services.map((service) => (
-        <Card class="h-full flex flex-col">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Icon name={service.icon} size={24} class="text-primary-light" />
-            </div>
-            <h2 class="text-lg md:text-xl font-semibold text-neutral-900">{service.name}</h2>
+  <!-- Website Growth & Management (white bg) -->
+  <Section background="white" id="growth">
+    <SplitLayout split="50-50" alignY="top" reverse>
+      <div class="space-y-3">
+        {growthFeatures.map((feature) => (
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-success shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-base text-neutral-700">{feature}</span>
           </div>
-          <p class="text-base text-neutral-600 leading-relaxed mb-4 flex-1">
-            {expandedDescriptions[service.slug]}
-          </p>
-          <div class="flex items-center justify-between mt-auto pt-4 border-t border-neutral-100">
-            <span class="text-sm font-medium text-neutral-500">{pricingRanges[service.slug]}</span>
-            <a
-              href={service.href}
-              class="text-primary-light font-medium text-sm hover:text-primary transition-colors inline-flex items-center gap-1"
-            >
-              Learn more about {service.name.toLowerCase()}
-              <Icon name="arrow-right" size={16} />
-            </a>
-          </div>
-        </Card>
-      ))}
-    </Grid>
+        ))}
+      </div>
+      <div>
+        <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-2">Website Growth & Management</h2>
+        <p class="text-sm font-medium text-primary-light mb-4">For businesses that already have a website and want it to actually perform.</p>
+        <p class="text-base md:text-lg leading-relaxed text-neutral-600 mb-6">
+          Your website shouldn't just sit there. We take over your hosting, security, and updates, then actively improve your SEO, speed, and conversion rates every month. You get a dedicated team watching your site daily \u2014 and a monthly report showing exactly what we did and how it's working.
+        </p>
+        <Button href="/pricing/" variant="ghost" size="sm">
+          See Pricing
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7-7 7" />
+          </svg>
+        </Button>
+      </div>
+    </SplitLayout>
   </Section>
 
-  <!-- Not Sure Where to Start (light bg) -->
+  <!-- Free Audit CTA (light bg) -->
   <Section background="light">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-xl md:text-3xl font-semibold leading-snug text-neutral-900 mb-4">
-        Not Sure Where to Start?
+        Not Sure What You Need?
       </h2>
       <p class="text-base md:text-lg leading-relaxed text-neutral-600 mb-8">
-        Book a free 30-minute discovery call. We'll review your current digital
-        presence, identify the biggest opportunities, and recommend the right
-        services for your goals and budget. No pressure, no obligation.
+        Book a free 30-minute discovery call. We'll review your current website (or lack of one), identify the biggest opportunities, and recommend a clear path forward. No pressure, no obligation.
       </p>
-      <Button href="/contact/" size="lg">Schedule a Free Discovery Call</Button>
+      <Button href="/contact/" size="lg">Schedule a Free Consultation</Button>
     </div>
   </Section>
 
