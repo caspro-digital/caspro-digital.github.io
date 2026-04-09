@@ -53,7 +53,8 @@ const { columns, class: className = '' } = Astro.props;
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
-            <span class:list={[!feature.included && 'text-neutral-400']}>{feature.text}</span>
+            {!feature.included && <span class="sr-only">Not included: </span>}
+            <span class:list={[!feature.included && 'text-neutral-500']}>{feature.text}</span>
           </li>
         ))}
       </ul>
@@ -86,7 +87,7 @@ const { columns, class: className = '' } = Astro.props;
     @apply text-3xl font-bold text-neutral-900 mb-1;
   }
   .pricing-table__period {
-    @apply text-sm text-neutral-400;
+    @apply text-sm text-neutral-500;
   }
   .pricing-table__description {
     @apply text-sm text-neutral-500 mb-6;

@@ -76,6 +76,8 @@ import Button from '../ui/Button.astro';
     toggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     setFocusable(true);
+    // Focus the close button so keyboard users land inside the panel
+    close?.focus();
   }
 
   function closeMenu() {
@@ -85,6 +87,8 @@ import Button from '../ui/Button.astro';
     toggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     setFocusable(false);
+    // Return focus to the toggle button
+    toggle?.focus();
   }
 
   toggle?.addEventListener('click', openMenu);
@@ -95,6 +99,28 @@ import Button from '../ui/Button.astro';
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Escape' && panel?.getAttribute('aria-hidden') === 'false') {
+      closeMenu();
+      return;
+    }
+
+    // Focus trap: cycle Tab within the panel when open
+    if (e.key !== 'Tab' || panel?.getAttribute('aria-hidden') !== 'false') return;
+    if (!focusableEls || focusableEls.length === 0) return;
+
+    const first = focusableEls[0];
+    const last = focusableEls[focusableEls.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 </script>
